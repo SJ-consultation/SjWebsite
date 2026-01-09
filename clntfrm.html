@@ -3,243 +3,240 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Consult — SJ Consultation Team</title>
+  <title>Client Form — SJ Consultation Team</title>
   <style>
     :root{
       --accent-blue: #0b74ff;
-      --accent-gray: #4b5563;
+      --auth-gray: #4b5563;
       --bg: #f6f8fb;
       --surface: #ffffff;
       --text: #071426;
       --muted: #6b7280;
-      --card-radius: 12px;
-      --max-width: 1000px;
-      --shadow: 0 8px 24px rgba(11,23,35,0.08);
-      --focus: rgba(11,116,255,0.16);
+      --shadow: 0 10px 30px rgba(11,23,35,0.08);
+      --card-radius: 14px;
+      --focus: rgba(11,116,255,0.14);
+      --max-width: 780px;
     }
+
     [data-theme="dark"]{
-      --accent-blue: #2e9bff;
-      --accent-gray: #98a0ad;
       --bg: #071021;
       --surface: #071425;
       --text: #e6eef9;
       --muted: #9aa6b3;
-      --shadow: 0 10px 30px rgba(0,0,0,0.55);
-      --focus: rgba(46,155,255,0.16);
     }
 
     *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+    a{color:inherit}
+    /* Container + pt-6 (1.5rem) at top */
+    main.page{
+      min-height:100vh;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      padding:24px 16px 48px; /* pt-6 = 24px */
+    }
+
+    .card{
+      width:100%;
+      max-width:var(--max-width);
+      background:var(--surface);
+      border-radius:var(--card-radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      border:1px solid rgba(11,23,35,0.04);
+    }
+
+    /* header/banner (photo6) */
+    .card-banner{position:relative;height:160px;background:#0b74ff;overflow:hidden}
+    .card-banner img{width:100%;height:100%;object-fit:cover;display:block;filter:contrast(1.02) saturate(0.98)}
+    .banner-overlay{
+      position:absolute;inset:0;
+      background: linear-gradient(180deg, rgba(11,116,255,0.28), rgba(11,116,255,0.02));
+      display:flex;align-items:center;justify-content:center;
+    }
+    .title-wrap{
+      text-align:center;color:white;padding:18px 16px;
+    }
+    .title-gradient{
+      font-size:26px;font-weight:800;letter-spacing:0.6px;
+      background: linear-gradient(90deg,var(--accent-blue),var(--auth-gray));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
       margin:0;
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
-      background:var(--bg);
-      color:var(--text);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.55;
-      font-size:16px;
     }
-    a{color:inherit;text-decoration:none}
-    img{max-width:100%;height:auto;display:block}
-    .container{width:100%;max-width:var(--max-width);margin:0 auto;padding:20px}
+    .subtitle{margin:6px 0 0 0;color:rgba(255,255,255,0.90);font-weight:600;font-size:13px}
 
-    header{
-      position:sticky;top:0;z-index:120;
-      background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.6));
-      border-bottom:1px solid rgba(11,23,35,0.04);
-      backdrop-filter: blur(6px);
-    }
-    [data-theme="dark"] header{
-      background:linear-gradient(180deg, rgba(7,20,33,0.9), rgba(7,20,33,0.6));
-      border-bottom:1px solid rgba(255,255,255,0.03);
-    }
-    .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0}
-    .brand{display:flex;align-items:center;gap:12px}
-    .brand img{height:44px;border-radius:6px}
-    .brand .title{font-weight:800}
-    .brand .tag{font-size:13px;color:var(--muted)}
-    .theme-toggle{display:inline-flex;align-items:center;gap:8px;padding:6px;border-radius:8px;border:1px solid rgba(11,23,35,0.06);cursor:pointer;background:transparent}
-    .theme-toggle img{height:18px;width:18px;display:block}
+    .card-body{padding:22px 22px 28px}
 
-    .panel{background:var(--surface);border-radius:14px;padding:22px;box-shadow:var(--shadow);margin-top:18px}
-    h1{margin:0 0 8px 0;font-size:22px}
-    .lead{color:var(--muted);margin-bottom:12px}
-
-    .cols{display:grid;grid-template-columns:1fr 380px;gap:18px}
-    @media (max-width:980px){ .cols{grid-template-columns:1fr} }
-
-    label{display:block;font-weight:700;margin-bottom:6px}
-    input, textarea, select {
-      width:100%;padding:12px;border-radius:8px;border:1px solid rgba(11,23,35,0.08);background:transparent;color:var(--text);font-size:15px;
+    form{width:100%}
+    label{display:block;font-weight:700;margin-bottom:6px;font-size:14px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .full{grid-column:1/-1}
+    input,select,textarea{
+      width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(11,23,35,0.08);font-size:15px;background:transparent;color:var(--text);
     }
     textarea{min-height:120px;resize:vertical}
-    .row{display:flex;gap:12px;align-items:center}
-    .muted{color:var(--muted)}
+    .muted{color:var(--muted);font-size:13px}
+    .actions{display:flex;gap:12px;justify-content:flex-end;margin-top:16px}
     .btn{padding:10px 14px;border-radius:10px;border:0;font-weight:800;cursor:pointer}
-    .btn-primary{background:var(--accent-blue);color:white}
+    .btn-primary{background:linear-gradient(90deg,var(--accent-blue),var(--auth-gray));color:white;box-shadow:0 10px 26px rgba(11,116,255,0.10)}
     .btn-ghost{background:transparent;border:1px solid rgba(11,23,35,0.06)}
-    .small{font-size:13px;color:var(--muted)}
-    .success{padding:10px;border-radius:8px;background:#e6ffef;border:1px solid #b7f0d0;color:#04632f}
-    .error{padding:10px;border-radius:8px;background:#fff1f1;border:1px solid #ffbebe;color:#7a1200}
-    .center{text-align:center}
-    .spaced{margin-top:12px}
-    .thin{font-weight:600;color:var(--muted);font-size:14px}
+    .note{font-size:13px;color:var(--muted);margin-top:8px}
+
+    .verify-block{margin-top:14px;padding:12px;border-radius:10px;border:1px solid rgba(11,23,35,0.04);background:linear-gradient(180deg, rgba(11,116,255,0.02), transparent)}
+    .inline{display:inline-flex;gap:8px;align-items:center}
     #recaptcha-container{margin-top:8px}
-    .note{font-size:13px;color:var(--muted);text-align:center;margin-top:16px}
-    .hidden{display:none}
-    a:focus, button:focus, input:focus, select:focus, textarea:focus{outline:4px solid var(--focus);outline-offset:2px;border-radius:8px;}
-    /* make summary text readable */
-    .summary-item{margin-bottom:8px;color:var(--muted);line-height:1.35}
-    .summary-item strong{color:var(--text);font-weight:700}
-    /* aside image placement */
-    .aside-image{width:100%;height:160px;border-radius:10px;overflow:hidden;background:#f0f2f5}
-    .aside-image img{width:100%;height:100%;object-fit:cover}
+
+    .message{margin-top:10px}
+    .error{padding:10px;border-radius:8px;background:#fff1f1;border:1px solid #ffbebe;color:#7a1200}
+    .success{padding:10px;border-radius:8px;background:#e6ffef;border:1px solid #b7f0d0;color:#04632f}
+
+    /* header with theme toggle */
+    header.sitehead{position:sticky;top:0;z-index:60;background:transparent;padding:12px 20px}
+    .sitehead-inner{display:flex;align-items:center;justify-content:center;gap:12px}
+    .theme-btn{position:absolute;right:18px;top:14px;display:inline-flex;align-items:center;gap:10px;padding:8px;border-radius:10px;border:1px solid rgba(11,23,35,0.06);background:var(--surface);cursor:pointer;box-shadow:0 8px 20px rgba(2,6,23,0.04)}
+    .theme-btn img{height:20px;width:20px;display:block}
+
+    @media (max-width:760px){
+      .grid{grid-template-columns:1fr}
+      .actions{flex-direction:column;align-items:stretch}
+      .title-gradient{font-size:20px}
+    }
+
+    input:focus,select:focus,textarea:focus,button:focus{outline:4px solid var(--focus);outline-offset:2px;border-radius:8px}
   </style>
 </head>
 <body data-theme="light">
-  <header>
-    <div class="container nav">
-      <div class="brand">
-        <img src="https://i.imgur.com/cnzc6hX.png" alt="SJ Consultation">
-        <div>
-          <div class="title">SJ Consultation Team</div>
-          <div class="tag">Security · Strategy · Solutions</div>
-        </div>
-      </div>
-
-      <div>
-        <button class="theme-toggle" id="themeToggle" aria-pressed="false" title="Toggle theme">
-          <img id="themeIcon" src="https://i.imgur.com/xsbEuC5.png" alt="theme icon">
-        </button>
+  <!-- header with visible theme toggle -->
+  <header class="sitehead" role="banner">
+    <div class="sitehead-inner" aria-hidden="true">
+      <!-- centered brand label area (keeps visual balance) -->
+      <div style="text-align:center">
+        <div style="font-weight:800;color:var(--muted)">SJ Consultation Team</div>
       </div>
     </div>
+
+    <button id="themeToggle" class="theme-btn" aria-pressed="false" title="Toggle theme">
+      <img id="themeIcon" src="https://i.imgur.com/xsbEuC5.png" alt="theme">
+    </button>
   </header>
 
-  <main class="container">
-    <div class="panel">
-      <h1>Client Application</h1>
-      <div class="lead">Fill the secure application below. Description is required (min 13 characters, max 300).</div>
-
-      <div class="cols" id="mainCols">
-        <!-- LEFT: form -->
-        <div>
-          <form id="appForm" onsubmit="return false;">
-            <div id="step-1">
-              <label for="fullName">Full name</label>
-              <input id="fullName" name="fullName" type="text" placeholder="Jane Doe" required>
-
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">
-                <div>
-                  <label for="email">Email address</label>
-                  <input id="email" name="email" type="email" placeholder="name@example.com" required>
-                </div>
-                <div>
-                  <label for="phone">Phone (international)</label>
-                  <input id="phone" name="phone" type="tel" placeholder="+1 555 555 5555" required>
-                </div>
-              </div>
-
-              <div style="margin-top:12px">
-                <label for="service">Requested service</label>
-                <select id="service" name="service" required>
-                  <option value="">Choose a service</option>
-                  <option value="security">Security Consultation</option>
-                  <option value="background">Background Checks</option>
-                  <option value="investigation">Licensed Investigations</option>
-                  <option value="custom">Custom Solution</option>
-                </select>
-              </div>
-
-              <div style="margin-top:12px">
-                <label for="details">Project description <span class="small">(required — 13 to 300 characters)</span></label>
-                <textarea id="details" name="details" required minlength="13" maxlength="300" placeholder="Describe the location, objectives, and any constraints (13–300 chars)"></textarea>
-              </div>
-
-              <div class="spaced small">Both email and phone verification are required. We'll create a secure provisional account to manage your application during verification.</div>
-
-              <div class="spaced" style="display:flex;gap:12px;flex-wrap:wrap">
-                <button class="btn btn-primary" id="startBtn">Proceed & Verify</button>
-                <button class="btn btn-ghost" type="button" id="resetBtn">Reset</button>
-              </div>
-
-              <div id="step1Msg" class="spaced"></div>
-            </div>
-
-            <!-- Step 2 (appears after step1) -->
-            <div id="step-2" class="hidden" style="margin-top:14px">
-              <h3 style="margin-top:0">Verification</h3>
-
-              <div id="emailBlock" class="spaced">
-                <div class="thin">Email verification</div>
-                <div class="small muted">A verification email was sent to <strong id="verifyEmailAddr"></strong>. Open it and click the link, then click <strong>Check Email Verification</strong>.</div>
-                <div style="margin-top:8px;display:flex;gap:10px">
-                  <button class="btn btn-primary" id="checkEmailBtn">Check Email Verification</button>
-                  <button class="btn btn-ghost" id="resendEmailBtn" type="button">Resend Email</button>
-                </div>
-                <div id="emailStatus" class="spaced"></div>
-              </div>
-
-              <div id="phoneBlock" class="spaced">
-                <div class="thin">Phone verification (SMS)</div>
-                <div class="small muted">A code was sent to <strong id="verifyPhoneNum"></strong>. Enter the 6-digit code below.</div>
-                <div id="recaptcha-container" style="margin-top:6px"></div>
-                <div style="margin-top:8px;display:flex;gap:8px;align-items:center">
-                  <input id="smsCode" placeholder="123456" style="flex:1;padding:10px;border-radius:8px;border:1px solid rgba(11,23,35,0.08)">
-                  <button class="btn btn-primary" id="confirmSmsBtn">Confirm SMS</button>
-                </div>
-                <div style="margin-top:8px">
-                  <button class="btn btn-ghost" id="resendSmsBtn" type="button">Resend SMS</button>
-                </div>
-                <div id="phoneStatus" class="spaced"></div>
-              </div>
-
-              <div style="margin-top:14px" class="spaced">
-                <div style="display:flex;gap:10px;flex-wrap:wrap">
-                  <button class="btn btn-primary" id="finalizeBtn" disabled>Finalize Application</button>
-                  <button class="btn btn-ghost" id="backBtn" type="button">Back</button>
-                </div>
-                <div id="finalStatus" class="spaced"></div>
-              </div>
-            </div>
-
-          </form>
+  <main class="page" role="main">
+    <article class="card" aria-labelledby="formTitle">
+      <!-- banner with your requested image (photo6) -->
+      <div class="card-banner" role="img" aria-label="Consulting visual">
+        <img src="https://i.imgur.com/t9Ojgbo.jpeg" alt="">
+        <div class="banner-overlay">
+          <div class="title-wrap">
+            <h1 id="formTitle" class="title-gradient">Client Form</h1>
+            <div class="subtitle">Secure application — email & cell verification (Canada only)</div>
+          </div>
         </div>
+      </div>
 
-        <!-- RIGHT: aside with image6 + summary + status -->
-        <aside>
-          <div class="panel">
-            <div class="aside-image" aria-hidden="true">
-              <!-- Photo6 placed here as a high-value visual — "perfect area" placement -->
-              <img src="https://i.imgur.com/t9Ojgbo.jpeg" alt="Inspection & consulting visual">
+      <div class="card-body">
+        <form id="clientForm" novalidate>
+          <div class="grid">
+            <div>
+              <label for="fullName">Full name</label>
+              <input id="fullName" name="fullName" type="text" required placeholder="Jane Doe">
             </div>
 
-            <div style="margin-top:12px">
-              <div class="thin">Application summary</div>
-              <div id="summary" style="margin-top:8px">
-                <div class="summary-item"><strong>Name:</strong> <span id="s_name">—</span></div>
-                <div class="summary-item"><strong>Email:</strong> <span id="s_email">—</span></div>
-                <div class="summary-item"><strong>Phone:</strong> <span id="s_phone">—</span></div>
-                <div class="summary-item"><strong>Service:</strong> <span id="s_service">—</span></div>
-                <div style="margin-top:8px" class="summary-item"><strong>Details:</strong><div id="s_details" style="color:var(--muted)">—</div></div>
-              </div>
+            <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" required placeholder="name@domain.com">
             </div>
 
-            <div style="margin-top:12px">
-              <div class="thin">Status</div>
-              <div id="statusBox" style="margin-top:8px">
-                <div class="small muted">Waiting to start verification</div>
-              </div>
+            <div>
+              <label for="cell">Cell phone number</label>
+              <input id="cell" name="cell" type="tel" required placeholder="+1 4165551234">
+            </div>
+
+            <div>
+              <label for="province">Province / Territory</label>
+              <select id="province" name="province" required>
+                <option value="">Select</option>
+                <option value="AB">Alberta</option>
+                <option value="BC">British Columbia</option>
+                <option value="MB">Manitoba</option>
+                <option value="NB">New Brunswick</option>
+                <option value="NL">Newfoundland and Labrador</option>
+                <option value="NS">Nova Scotia</option>
+                <option value="NT">Northwest Territories</option>
+                <option value="NU">Nunavut</option>
+                <option value="ON">Ontario</option>
+                <option value="PE">Prince Edward Island</option>
+                <option value="QC">Quebec</option>
+                <option value="SK">Saskatchewan</option>
+                <option value="YT">Yukon</option>
+              </select>
+            </div>
+
+            <div class="full">
+              <label for="city">City / Municipality</label>
+              <input id="city" name="city" type="text" required placeholder="Toronto">
+            </div>
+
+            <div>
+              <label for="postal">Postal code</label>
+              <input id="postal" name="postal" type="text" required placeholder="A1A 1A1">
+            </div>
+
+            <div class="full">
+              <label for="details">Project description</label>
+              <textarea id="details" name="details" required minlength="13" maxlength="300" placeholder="Describe location, objectives, constraints (13–300 characters)"></textarea>
             </div>
           </div>
-        </aside>
 
-      </div><!-- cols -->
-    </div><!-- panel -->
+          <div id="formMessage" class="message" aria-live="polite"></div>
+
+          <div class="actions">
+            <button id="proceedBtn" class="btn btn-primary" type="button">Proceed & Verify</button>
+            <button id="resetBtn" class="btn btn-ghost" type="button">Reset</button>
+          </div>
+
+          <!-- verification block (hidden until needed) -->
+          <div id="verificationArea" class="verify-block" style="display:none" aria-hidden="true">
+            <div style="font-weight:700;margin-bottom:6px">Verification</div>
+
+            <div style="margin-bottom:10px">
+              <div class="muted">Email:</div>
+              <div id="v_email" style="font-weight:700">—</div>
+              <div style="display:flex;gap:8px;margin-top:8px">
+                <button id="checkEmailBtn" class="btn btn-primary" type="button">Check Email</button>
+                <button id="resendEmailBtn" class="btn btn-ghost" type="button">Resend Email</button>
+              </div>
+              <div id="emailStatus" style="margin-top:8px"></div>
+            </div>
+
+            <div>
+              <div class="muted">Cell:</div>
+              <div id="v_cell" style="font-weight:700">—</div>
+              <div id="recaptcha-container"></div>
+              <div style="display:flex;gap:8px;margin-top:8px;align-items:center">
+                <input id="smsCode" placeholder="123456" style="flex:1;padding:10px;border-radius:8px;border:1px solid rgba(11,23,35,0.08)">
+                <button id="confirmSmsBtn" class="btn btn-primary" type="button">Confirm SMS</button>
+              </div>
+              <div style="margin-top:8px">
+                <button id="resendSmsBtn" class="btn btn-ghost" type="button">Resend SMS</button>
+              </div>
+              <div id="phoneStatus" style="margin-top:8px"></div>
+            </div>
+
+            <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:14px">
+              <button id="finalizeBtn" class="btn btn-primary" type="button" disabled>Finalize Application</button>
+              <button id="backBtn" class="btn btn-ghost" type="button">Back</button>
+            </div>
+
+            <div id="finalStatus" style="margin-top:12px"></div>
+          </div>
+        </form>
+      </div>
+    </article>
   </main>
 
   <script type="module">
-  // Full polished client application page with Firebase email + phone verification
+  // ========== Firebase + logic (modular SDK v10) ==========
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
   import {
     getAuth,
@@ -247,19 +244,12 @@
     sendEmailVerification,
     RecaptchaVerifier,
     linkWithPhoneNumber,
-    onAuthStateChanged,
-    signOut,
-    reload
+    reload,
+    signOut
   } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-  import {
-    getFirestore,
-    collection,
-    addDoc,
-    serverTimestamp
-  } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-  // Firebase config (your project)
+  // Firebase config (same as your project)
   const firebaseConfig = {
     apiKey: "AIzaSyCfa_A6jcAlL-ey8TPl21rvgcrRKulh3qo",
     authDomain: "sjdeveloper.firebaseapp.com",
@@ -270,358 +260,324 @@
     measurementId: "G-VJ3YT3LCGC"
   };
 
-  // Initialize
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
-  // attach to window to avoid recaptcha/quasi-internal undefined issues
+  // attach for Recaptcha internal access safety
   window.auth = auth;
-
   const db = getFirestore(app);
 
   // UI refs
-  const startBtn = document.getElementById('startBtn');
+  const clientForm = document.getElementById('clientForm');
+  const proceedBtn = document.getElementById('proceedBtn');
   const resetBtn = document.getElementById('resetBtn');
-  const backBtn = document.getElementById('backBtn');
-  const finalizeBtn = document.getElementById('finalizeBtn');
+  const formMessage = document.getElementById('formMessage');
+  const verificationArea = document.getElementById('verificationArea');
+  const v_email = document.getElementById('v_email');
+  const v_cell = document.getElementById('v_cell');
   const checkEmailBtn = document.getElementById('checkEmailBtn');
   const resendEmailBtn = document.getElementById('resendEmailBtn');
+  const emailStatus = document.getElementById('emailStatus');
   const confirmSmsBtn = document.getElementById('confirmSmsBtn');
   const resendSmsBtn = document.getElementById('resendSmsBtn');
-
-  const step1Msg = document.getElementById('step1Msg');
-  const emailStatus = document.getElementById('emailStatus');
   const phoneStatus = document.getElementById('phoneStatus');
+  const smsCodeInput = document.getElementById('smsCode');
+  const finalizeBtn = document.getElementById('finalizeBtn');
+  const backBtn = document.getElementById('backBtn');
   const finalStatus = document.getElementById('finalStatus');
-  const statusBox = document.getElementById('statusBox');
 
-  const s_name = document.getElementById('s_name');
-  const s_email = document.getElementById('s_email');
-  const s_phone = document.getElementById('s_phone');
-  const s_service = document.getElementById('s_service');
-  const s_details = document.getElementById('s_details');
-
-  const verifyEmailAddr = document.getElementById('verifyEmailAddr');
-  const verifyPhoneNum = document.getElementById('verifyPhoneNum');
-
-  // recaptcha container id
-  const RECAPTCHA_CONTAINER = 'recaptcha-container';
+  // form fields
+  const fullNameEl = document.getElementById('fullName');
+  const emailEl = document.getElementById('email');
+  const cellEl = document.getElementById('cell');
+  const provinceEl = document.getElementById('province');
+  const cityEl = document.getElementById('city');
+  const postalEl = document.getElementById('postal');
+  const detailsEl = document.getElementById('details');
 
   // state
-  let currentConfirmation = null;
   let createdUser = null;
+  let confirmationResult = null;
   let phoneLinked = false;
   let emailVerified = false;
   let recaptchaVerifier = null;
 
-  // theme toggle
-  const themeToggle = document.getElementById('themeToggle');
-  const themeIcon = document.getElementById('themeIcon');
-  const savedTheme = localStorage.getItem('sj_theme') || 'light';
-  document.documentElement.setAttribute('data-theme', savedTheme);
-  themeIcon.src = (savedTheme === 'dark') ? 'https://i.imgur.com/vrfrd6g.png' : 'https://i.imgur.com/xsbEuC5.png';
-  themeToggle && themeToggle.addEventListener('click', () => {
-    const cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-    const next = cur === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('sj_theme', next);
-    themeIcon.src = (next === 'dark') ? 'https://i.imgur.com/vrfrd6g.png' : 'https://i.imgur.com/xsbEuC5.png';
-  });
+  // Canada area codes
+  const CANADA_AREA_CODES = new Set([
+    "204","236","249","250","289","306","343","365","403","416","418","431","437","438","450","506",
+    "514","519","548","579","581","587","604","613","639","647","672","705","709","742","743","778",
+    "780","782","807","819","825","867","873","902","905"
+  ]);
 
   // helpers
-  function setStatus(text, type='info') {
-    statusBox.innerHTML = '';
-    const el = document.createElement('div');
-    el.textContent = text;
-    if (type === 'success') el.className = 'success';
-    else if (type === 'error') el.className = 'error';
-    else el.className = 'small muted';
-    statusBox.appendChild(el);
+  function escapeHtml(s=''){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+  function showError(target, msg){ target.innerHTML = `<div class="error">${escapeHtml(msg)}</div>`; }
+  function showSuccess(target, msg){ target.innerHTML = `<div class="success">${escapeHtml(msg)}</div>`; }
+  function clearNode(target){ target.innerHTML = ''; }
+
+  // validations
+  function isValidCanadianPostal(pc){
+    if(!pc) return false;
+    return /^[A-Za-z]\d[A-Za-z][ ]?\d[A-Za-z]\d$/.test(pc.trim());
   }
-  function showError(targetEl, message) {
-    targetEl.innerHTML = `<div class="error">${message}</div>`;
-  }
-  function showSuccess(targetEl, message) {
-    targetEl.innerHTML = `<div class="success">${message}</div>`;
+  function isValidCanadianPhone(raw){
+    if(!raw) return false;
+    const s = raw.replace(/[^\d\+]/g,'');
+    const normalized = s.startsWith('+') ? s : ('+' + s.replace(/^\+?/,''));
+    if(!/^\+1\d{10}$/.test(normalized)) return false;
+    const area = normalized.substr(2,3);
+    return CANADA_AREA_CODES.has(area);
   }
 
-  function updateSummary() {
-    s_name.textContent = document.getElementById('fullName').value.trim() || '—';
-    s_email.textContent = document.getElementById('email').value.trim() || '—';
-    s_phone.textContent = document.getElementById('phone').value.trim() || '—';
-    s_service.textContent = (document.getElementById('service').selectedIndex > 0) ? document.getElementById('service').options[document.getElementById('service').selectedIndex].text : '—';
-    s_details.textContent = document.getElementById('details').value.trim() || '—';
+  function validateForm(){
+    clearNode(formMessage);
+    if(!fullNameEl.value.trim()) { showError(formMessage,'Full name is required.'); return false; }
+    const email = emailEl.value.trim();
+    if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showError(formMessage,'Valid email required.'); return false; }
+    if(!isValidCanadianPhone(cellEl.value.trim())) { showError(formMessage,'Cell must be a valid Canadian number (include +1).'); return false; }
+    if(!provinceEl.value) { showError(formMessage,'Select a province.'); return false; }
+    if(!cityEl.value.trim()) { showError(formMessage,'City is required.'); return false; }
+    if(!isValidCanadianPostal(postalEl.value.trim())) { showError(formMessage,'Valid Canadian postal code required (A1A 1A1).'); return false; }
+    const d = detailsEl.value.trim();
+    if(d.length < 13) { showError(formMessage,'Description must be at least 13 characters.'); return false; }
+    if(d.length > 300) { showError(formMessage,'Description must be 300 characters or fewer.'); return false; }
+    return true;
   }
 
-  // Validate description: required, min 13 chars, max 300
-  function validateDescription(text) {
-    const t = text.trim();
-    const len = t.length;
-    if (len < 13) return { ok:false, msg: 'Description must be at least 13 characters.' };
-    if (len > 300) return { ok:false, msg: 'Description must be 300 characters or fewer.' };
-    return { ok:true };
-  }
-
-  // prepare recaptcha (modular, stable)
-  function prepareRecaptcha() {
-    try {
-      if (window.recaptchaVerifier) {
-        try { window.recaptchaVerifier.clear(); } catch(e){}
+  // Recaptcha prepare (stable)
+  function prepareRecaptcha(){
+    try{
+      if(window.recaptchaVerifier){
+        try{ window.recaptchaVerifier.clear(); } catch(e){}
         window.recaptchaVerifier = null;
-        recaptchaVerifier = null;
-        document.getElementById(RECAPTCHA_CONTAINER).innerHTML = '';
       }
-    } catch(e){}
-    // create new RecaptchaVerifier attached to auth (window.auth ensures auth exists)
-    window.recaptchaVerifier = new RecaptchaVerifier(RECAPTCHA_CONTAINER, {
-      size: 'invisible',
-      callback: (response) => { /* invisible callback */ },
-      'expired-callback': () => {}
-    }, auth);
+      document.getElementById('recaptcha-container').innerHTML = '';
+    }catch(e){}
+    window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', { size: 'invisible' }, auth);
     recaptchaVerifier = window.recaptchaVerifier;
   }
 
-  // secure temp password generator
-  function generateTempPassword(len=14) {
-    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+';
+  function generateTempPassword(len=14){
+    const alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+';
     let out = '';
-    if (window.crypto && crypto.getRandomValues) {
-      const values = new Uint32Array(len);
-      crypto.getRandomValues(values);
-      for (let i=0;i<len;i++) out += alphabet[values[i] % alphabet.length];
+    if(window.crypto && crypto.getRandomValues){
+      const arr = new Uint32Array(len); crypto.getRandomValues(arr);
+      for(let i=0;i<len;i++) out += alpha[arr[i] % alpha.length];
     } else {
-      for (let i=0;i<len;i++) out += alphabet[Math.floor(Math.random()*alphabet.length)];
+      for(let i=0;i<len;i++) out += alpha[Math.floor(Math.random()*alpha.length)];
     }
     return out;
   }
 
-  // reset
-  resetBtn.addEventListener('click', () => {
-    document.getElementById('appForm').reset();
-    updateSummary();
-    step1Msg.innerHTML = '';
-  });
+  // Start verification flow
+  proceedBtn.addEventListener('click', async () => {
+    clearNode(formMessage); clearNode(emailStatus); clearNode(phoneStatus); clearNode(finalStatus);
+    if(!validateForm()) return;
 
-  // Start flow
-  startBtn.addEventListener('click', async (e) => {
-    e.preventDefault();
-    step1Msg.innerHTML = '';
-    updateSummary();
+    // show values in verification area
+    v_email.textContent = emailEl.value.trim();
+    v_cell.textContent = cellEl.value.trim();
 
-    const name = document.getElementById('fullName').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    const service = document.getElementById('service').value;
-    const details = document.getElementById('details').value;
+    verificationArea.style.display = 'block';
+    verificationArea.setAttribute('aria-hidden','false');
 
-    // basic validation
-    if (!name || !email || !phone || !service) {
-      showError(step1Msg, 'Please fill name, email, phone and select a service.');
-      return;
-    }
-
-    const descCheck = validateDescription(details);
-    if (!descCheck.ok) {
-      showError(step1Msg, descCheck.msg);
-      return;
-    }
-
-    startBtn.disabled = true;
-    startBtn.textContent = 'Processing...';
-    setStatus('Starting verification flow...');
-
-    try {
-      // create temporary user (email + temp password)
+    proceedBtn.disabled = true;
+    proceedBtn.textContent = 'Processing...';
+    try{
       const tempPassword = generateTempPassword();
-      const userCredential = await createUserWithEmailAndPassword(auth, email, tempPassword);
+      const userCredential = await createUserWithEmailAndPassword(auth, emailEl.value.trim(), tempPassword);
       createdUser = userCredential.user;
 
-      // send verification email
+      // send email verification
       await sendEmailVerification(createdUser);
-      verifyEmailAddr.textContent = createdUser.email;
-      showSuccess(emailStatus, 'Verification email sent.');
+      showSuccess(emailStatus, 'Verification email sent. Click the link then press Check Email.');
 
-      // prepare recaptcha and send SMS via linkWithPhoneNumber
+      // send SMS via linkWithPhoneNumber
       prepareRecaptcha();
-      verifyPhoneNum.textContent = phone;
+      const normalizedCell = cellEl.value.trim().replace(/[^\d\+]/g,'');
+      confirmationResult = await linkWithPhoneNumber(createdUser, normalizedCell, window.recaptchaVerifier);
+      showSuccess(phoneStatus, 'SMS sent. Enter the code and confirm.');
 
-      // linkWithPhoneNumber will send an SMS to the phone for the currently signed-in user
-      currentConfirmation = await linkWithPhoneNumber(createdUser, phone, window.recaptchaVerifier);
-      showSuccess(phoneStatus, 'SMS code sent to phone. Enter it and confirm.');
-
-      // reveal step 2 UI
-      document.getElementById('step-1').classList.add('hidden');
-      document.getElementById('step-2').classList.remove('hidden');
-
-      setStatus('Verification email and SMS sent. Complete both verifications to finalize.');
-      // ensure summary updated
-      updateSummary();
-    } catch (err) {
+      // initialize finalize state
+      phoneLinked = false;
+      emailVerified = false;
+      finalizeBtn.disabled = true;
+      finalStatus.innerHTML = '';
+    } catch(err){
       console.error(err);
-      // friendly messages for common cases
-      if (err.code === 'auth/email-already-in-use') {
-        showError(step1Msg, 'That email is already registered. If this is yours, check inbox for verification or contact the team.');
-      } else if (err.code === 'auth/invalid-phone-number' || err.code === 'auth/missing-phone-number') {
-        showError(step1Msg, 'Please provide a valid international phone number (e.g., +1 555 555 5555).');
-      } else if (err.code) {
-        showError(step1Msg, `Verification start failed: ${err.message || err.code}`);
+      if(err && err.code === 'auth/email-already-in-use'){
+        showError(formMessage,'Email already registered. Check inbox for verification.');
+      } else if(err && (err.code === 'auth/invalid-phone-number' || err.code === 'auth/missing-phone-number')){
+        showError(formMessage,'Invalid phone number. Include +1 and a valid Canadian area code.');
       } else {
-        showError(step1Msg, 'Verification start failed. Please try again.');
+        showError(formMessage,'Failed to start verification: ' + (err.message || err.code || err));
       }
-      // cleanup auth
-      try { await signOut(auth); } catch(e){}
+      // cleanup
+      try{ await signOut(auth); }catch(e){}
+      verificationArea.style.display = 'none';
+      verificationArea.setAttribute('aria-hidden','true');
     } finally {
-      startBtn.disabled = false;
-      startBtn.textContent = 'Proceed & Verify';
+      proceedBtn.disabled = false;
+      proceedBtn.textContent = 'Proceed & Verify';
     }
   });
 
   // Confirm SMS
-  confirmSmsBtn.addEventListener('click', async (e) => {
-    e.preventDefault();
-    phoneStatus.innerHTML = '';
-    const code = document.getElementById('smsCode').value.trim();
-    if (!code) {
-      showError(phoneStatus, 'Enter the SMS code you received.');
-      return;
-    }
+  confirmSmsBtn.addEventListener('click', async () => {
+    clearNode(phoneStatus);
+    const code = smsCodeInput.value.trim();
+    if(!code){ showError(phoneStatus,'Enter the 6-digit SMS code.'); return; }
     confirmSmsBtn.disabled = true; confirmSmsBtn.textContent = 'Confirming...';
-    try {
-      const result = await currentConfirmation.confirm(code);
+    try{
+      const res = await confirmationResult.confirm(code);
       phoneLinked = true;
-      showSuccess(phoneStatus, 'Phone verified and linked.');
-      setStatus('Phone linked. Now verify email (if not already).');
-
+      showSuccess(phoneStatus, 'Phone verified.');
+      // reload user to check emailVerified
       await reload(auth.currentUser);
       emailVerified = !!auth.currentUser.emailVerified;
+      if(emailVerified) showSuccess(emailStatus, 'Email verified.');
       updateFinalizeState();
-    } catch (err) {
+    } catch(err){
       console.error(err);
-      showError(phoneStatus, 'Invalid SMS code or verification failed. Try resending.');
+      showError(phoneStatus,'SMS verification failed. Try resending.');
     } finally {
       confirmSmsBtn.disabled = false; confirmSmsBtn.textContent = 'Confirm SMS';
     }
   });
 
   // Resend SMS
-  resendSmsBtn.addEventListener('click', async (e) => {
-    e.preventDefault();
-    phoneStatus.innerHTML = '';
-    try {
+  resendSmsBtn.addEventListener('click', async () => {
+    clearNode(phoneStatus);
+    try{
       prepareRecaptcha();
-      const phone = document.getElementById('phone').value.trim();
-      if (!phone) { showError(phoneStatus, 'Phone number missing.'); return; }
-      currentConfirmation = await linkWithPhoneNumber(createdUser, phone, window.recaptchaVerifier);
-      showSuccess(phoneStatus, 'SMS resent.');
-    } catch (err) {
+      const normalizedCell = cellEl.value.trim().replace(/[^\d\+]/g,'');
+      confirmationResult = await linkWithPhoneNumber(createdUser, normalizedCell, window.recaptchaVerifier);
+      showSuccess(phoneStatus,'SMS resent.');
+    } catch(err){
       console.error(err);
-      showError(phoneStatus, 'Failed to resend SMS: ' + (err.message || err));
+      showError(phoneStatus,'Failed to resend SMS: ' + (err.message || err.code || err));
     }
   });
 
-  // Resend email verification
-  resendEmailBtn.addEventListener('click', async (e) => {
-    e.preventDefault();
-    emailStatus.innerHTML = '';
-    try {
-      if (!createdUser) { showError(emailStatus, 'No email session found. Start the process first.'); return; }
+  // Resend email
+  resendEmailBtn.addEventListener('click', async () => {
+    clearNode(emailStatus);
+    try{
+      if(!createdUser){ showError(emailStatus,'Start verification first.'); return; }
       await sendEmailVerification(createdUser);
-      showSuccess(emailStatus, 'Verification email resent. Check your inbox.');
-    } catch (err) {
+      showSuccess(emailStatus,'Verification email resent.');
+    } catch(err){
       console.error(err);
-      showError(emailStatus, 'Failed to resend verification email.');
+      showError(emailStatus,'Failed to resend email.');
     }
   });
 
   // Check email verification
-  checkEmailBtn.addEventListener('click', async (e) => {
-    e.preventDefault();
-    emailStatus.innerHTML = '';
-    try {
+  checkEmailBtn.addEventListener('click', async () => {
+    clearNode(emailStatus);
+    try{
       await reload(auth.currentUser);
       emailVerified = !!auth.currentUser.emailVerified;
-      if (emailVerified) {
-        showSuccess(emailStatus, 'Email verified.');
-        setStatus('Email verified.');
-      } else {
-        showError(emailStatus, 'Email not verified yet. Check your inbox and click the link.');
-      }
+      if(emailVerified) showSuccess(emailStatus,'Email verified.');
+      else showError(emailStatus,'Email not verified yet. Click the link in the email.');
       updateFinalizeState();
-    } catch (err) {
+    } catch(err){
       console.error(err);
-      showError(emailStatus, 'Failed to check verification. Try again.');
+      showError(emailStatus,'Failed to check verification.');
     }
   });
 
-  // Enable finalize when both verified
-  function updateFinalizeState() {
-    if (phoneLinked && emailVerified) {
+  function updateFinalizeState(){
+    if(phoneLinked && emailVerified){
       finalizeBtn.disabled = false;
-      finalizeBtn.textContent = 'Finalize Application';
-      setStatus('Ready to finalize. Email and phone verified.', 'success');
+      finalStatus.innerHTML = '';
     } else {
       finalizeBtn.disabled = true;
-      const missing = [];
-      if (!phoneLinked) missing.push('phone verification');
-      if (!emailVerified) missing.push('email verification');
-      setStatus('Waiting for: ' + missing.join(' and '));
+      let missing = [];
+      if(!phoneLinked) missing.push('phone');
+      if(!emailVerified) missing.push('email');
+      finalStatus.innerHTML = `<div class="muted small">Waiting for: ${missing.join(' & ')}</div>`;
     }
   }
 
-  // Finalize: save to Firestore
-  finalizeBtn.addEventListener('click', async (e) => {
-    e.preventDefault();
+  // Finalize: validate again & save to Firestore
+  finalizeBtn.addEventListener('click', async () => {
+    clearNode(finalStatus);
+    if(!validateForm()){ showError(finalStatus,'Validation failed — correct fields and try again.'); return; }
     finalizeBtn.disabled = true; finalizeBtn.textContent = 'Submitting...';
-    finalStatus.innerHTML = '';
-    try {
+    try{
       const doc = {
-        name: document.getElementById('fullName').value.trim(),
-        email: document.getElementById('email').value.trim(),
-        phone: document.getElementById('phone').value.trim(),
-        service: document.getElementById('service').value,
-        details: document.getElementById('details').value.trim(),
+        name: fullNameEl.value.trim(),
+        email: emailEl.value.trim(),
+        cell: cellEl.value.trim().replace(/[^\d\+]/g,''),
+        province: provinceEl.value,
+        city: cityEl.value.trim(),
+        postal: postalEl.value.trim().toUpperCase(),
+        details: detailsEl.value.trim(),
         emailVerified: !!auth.currentUser.emailVerified,
         phoneLinked: !!phoneLinked,
         createdAt: serverTimestamp()
       };
       await addDoc(collection(db, 'applications'), doc);
-      showSuccess(finalStatus, 'Application submitted. Thank you — SJ Consultation Team will review and contact you.');
-      setStatus('Application submitted successfully.', 'success');
-
-      // sign out for security and lock form
-      try { await signOut(auth); } catch(e){}
-      document.getElementById('appForm').querySelectorAll('input,textarea,select,button').forEach(el=>{
-        el.disabled = true;
-      });
-    } catch (err) {
+      showSuccess(finalStatus, 'Application submitted. SJ Consultation Team will review and contact you.');
+      // sign out and lock fields for security
+      try{ await signOut(auth); }catch(e){}
+      clientForm.querySelectorAll('input,textarea,select,button').forEach(el=>el.disabled = true);
+    } catch(err){
       console.error(err);
-      showError(finalStatus, 'Failed to submit application: ' + (err.message || err));
+      showError(finalStatus,'Failed to submit: ' + (err.message || err.code || err));
       finalizeBtn.disabled = false; finalizeBtn.textContent = 'Finalize Application';
     }
   });
 
-  // Back to edit
-  backBtn.addEventListener('click', () => {
-    document.getElementById('step-2').classList.add('hidden');
-    document.getElementById('step-1').classList.remove('hidden');
-    setStatus('Back to form for edits.');
+  // Back button hides verification block
+  backBtn.addEventListener('click', ()=> {
+    verificationArea.style.display = 'none';
+    verificationArea.setAttribute('aria-hidden','true');
+    clearNode(emailStatus); clearNode(phoneStatus); clearNode(finalStatus);
+    try{ smsCodeInput.value = ''; }catch(e){}
   });
 
-  // Auth state monitoring (informational)
-  onAuthStateChanged(auth, user => {
-    if (user) {
-      setStatus('Authenticated. Proceed with verification steps as shown.');
-    } else {
-      setStatus('Not authenticated.');
-    }
+  // Reset clears form and signs out
+  resetBtn.addEventListener('click', async () => {
+    clientForm.reset();
+    clearNode(formMessage); clearNode(emailStatus); clearNode(phoneStatus); clearNode(finalStatus);
+    verificationArea.style.display = 'none';
+    verificationArea.setAttribute('aria-hidden','true');
+    try{ await signOut(auth); }catch(e){}
   });
 
-  // live summary updates
-  ['fullName','email','phone','service','details'].forEach(id=>{
-    const el = document.getElementById(id);
-    if (el) el.addEventListener('input', updateSummary);
+  // live update of verification displays
+  [emailEl,cellEl].forEach(el => el && el.addEventListener('input', ()=>{
+    v_email.textContent = emailEl.value.trim() || '—';
+    v_cell.textContent = cellEl.value.trim() || '—';
+  }));
+
+  // Clean up auth on unload
+  window.addEventListener('beforeunload', async () => {
+    try{ await signOut(auth); }catch(e){}
   });
-  updateSummary();
-  setStatus('Ready');
+
+  // ========== Theme toggle (clear visible icon) ==========
+  (function(){
+    const key = 'sj_theme';
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const ICON_LIGHT = 'https://i.imgur.com/xsbEuC5.png';
+    const ICON_DARK  = 'https://i.imgur.com/vrfrd6g.png';
+    const root = document.documentElement;
+    const saved = localStorage.getItem(key) || 'light';
+    root.setAttribute('data-theme', saved);
+    themeIcon.src = (saved === 'dark') ? ICON_DARK : ICON_LIGHT;
+    themeToggle.setAttribute('aria-pressed', saved === 'dark' ? 'true' : 'false');
+    themeToggle.addEventListener('click', ()=>{
+      const cur = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      const next = cur === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem(key, next);
+      themeIcon.src = (next === 'dark') ? ICON_DARK : ICON_LIGHT;
+      themeToggle.setAttribute('aria-pressed', next === 'dark' ? 'true' : 'false');
+    });
+  })();
 
   </script>
 </body>
