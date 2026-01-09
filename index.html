@@ -46,17 +46,61 @@
     img{max-width:100%;height:auto;display:block;vertical-align:middle}
     .container{width:100%;max-width:var(--max-width);margin:0 auto;padding:0 20px}
 
-    /* Loading overlay */
+    /* ===== Enhanced Loading Screen ===== */
     #loadingScreen{
-      position:fixed;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;
-      background:linear-gradient(180deg, rgba(7,10,20,0.95), rgba(7,10,20,0.95));color:white;z-index:9999;
+      position:fixed;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      background:radial-gradient(circle at top, rgba(11,116,255,0.10), rgba(0,0,0,0.85));
+      z-index:9999;
+      gap:14px;
     }
-    #loadingScreen img{height:80px;margin-bottom:14px}
-    #loadingScreen .loading-text{font-weight:700;letter-spacing:0.6px;opacity:0.95}
-    #loadingScreen.fadeout{animation:fadeOut .6s ease forwards;}
+    .loader-inner{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:14px;
+      transform:translateY(-8px);
+    }
+    .loader-inner img{
+      height:86px;
+      width:auto;
+      animation:logoPulse 2.4s ease-in-out infinite;
+      filter: drop-shadow(0 8px 18px rgba(2,6,23,0.45));
+    }
+    @keyframes logoPulse{
+      0%,100%{transform:scale(1);opacity:0.95}
+      50%{transform:scale(1.05);opacity:1}
+    }
+    .loading-text{
+      font-weight:700;
+      letter-spacing:1px;
+      color:#eaf1ff;
+      font-size:15px;
+      min-height:20px;
+    }
+    .loading-bar{
+      width:188px;
+      height:6px;
+      background:rgba(255,255,255,0.12);
+      border-radius:999px;
+      overflow:hidden;
+    }
+    .loading-progress{
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg,#0b74ff,#9ca3af);
+      border-radius:999px;
+      transition:width .4s ease;
+      box-shadow:0 4px 14px rgba(11,116,255,0.12) inset;
+    }
+    .fadeout{animation:fadeOut .6s ease forwards;}
     @keyframes fadeOut{to{opacity:0;visibility:hidden;transform:scale(.995)}}
 
-    /* Header */
+    /* ===== Header & Nav (unchanged structurally) ===== */
     header{
       position:sticky;
       top:0;
@@ -76,7 +120,6 @@
     .brand .title{font-weight:700;font-size:18px;letter-spacing:0.2px}
     .brand .tag{font-size:12px;color:var(--muted);margin-top:2px}
 
-    /* Desktop nav */
     .nav-links{display:flex;gap:18px;align-items:center}
     .nav-links a{font-weight:600;color:var(--accent-gray);padding:8px 10px;border-radius:8px}
     .nav-links a:hover{background:rgba(11,23,35,0.03)}
@@ -89,7 +132,6 @@
       box-shadow: var(--shadow);
     }
 
-    /* Mobile and social */
     .social-dropdown{position:relative;}
     .social-toggle{
       background:transparent;border:1px solid rgba(11,23,35,0.06);padding:8px 10px;border-radius:8px;display:flex;gap:8px;align-items:center;
@@ -107,16 +149,21 @@
       .nav-toggle{display:block}
     }
 
-    .mobile-panel{
-      display:none;position:fixed;top:64px;right:12px;width:calc(100% - 32px);max-width:360px;background:var(--surface);border:1px solid rgba(11,23,35,0.06);border-radius:12px;padding:12px;z-index:90;
-    }
+    .mobile-panel{display:none;position:fixed;top:64px;right:12px;width:calc(100% - 32px);max-width:360px;background:var(--surface);border:1px solid rgba(11,23,35,0.06);border-radius:12px;padding:12px;z-index:90;}
     [data-theme="dark"] .mobile-panel{border:1px solid rgba(255,255,255,0.03)}
     .mobile-panel.open{display:block}
     .mobile-panel .mobile-links{display:flex;flex-direction:column;gap:8px}
     .mobile-links a{padding:10px;border-radius:8px;color:var(--accent-gray);font-weight:700}
     .mobile-links a:hover{background:rgba(11,23,35,0.03)}
 
-    /* Hero */
+    /* Theme toggle icon visibility - clearly visible */
+    .theme-toggle{
+      display:inline-flex;align-items:center;gap:10px;padding:6px;border-radius:10px;border:1px solid rgba(11,23,35,0.06);background:var(--surface);cursor:pointer;
+      box-shadow: 0 4px 12px rgba(2,6,23,0.06);
+    }
+    .theme-toggle img{height:20px;width:20px;display:block}
+
+    /* Hero, services, rest (unchanged visuals) */
     .hero{padding:48px 0 36px}
     .hero-inner{display:flex;gap:28px;align-items:center;justify-content:space-between;flex-wrap:wrap}
     .hero-left{flex:1 1 420px;color:white;padding:28px;border-radius:14px;background: linear-gradient(180deg, rgba(11,116,255,0.95), #000000);box-shadow: 0 20px 50px rgba(11,23,35,0.25);min-width:260px;}
@@ -132,7 +179,6 @@
     .hero-images .img-2,.hero-images .img-3{height:120px;border-radius:12px;overflow:hidden;position:relative}
     .hero-images img{width:100%;height:100%;object-fit:cover;display:block;filter:contrast(1.02) saturate(0.98)}
 
-    /* Services */
     .section{padding:42px 0}
     .section h2{margin:0 0 18px 0;font-size:20px}
     .services-grid{display:grid;gap:18px;grid-template-columns: repeat(3, 1fr);}
@@ -153,30 +199,23 @@
       .hero-left h1{font-size:22px}
     }
 
-    /* After services — mobile consult button area */
     .mobile-consult-wrapper{display:none;margin-top:18px;text-align:center}
     .mobile-consult-wrapper .mobile-consult-btn{display:inline-block;background:var(--accent-blue);color:white;padding:12px 18px;border-radius:12px;font-weight:800;box-shadow:var(--shadow);}
 
     @media (max-width:880px){
-      /* hide desktop CTA on mobile so consult comes later */
       .cta{display:none}
       .mobile-consult-wrapper{display:block}
     }
 
-    /* How it works, about, footer kept simple */
     .steps{display:flex;gap:14px;flex-wrap:wrap}
     .step{background:var(--surface);border-radius:12px;padding:16px;flex:1 1 200px;box-shadow: var(--shadow);min-width:190px;}
     .step h4{margin:0 0 8px 0}
     .muted{color:var(--muted);font-size:14px}
-
     .about{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
     .about p{color:var(--muted);margin:0}
-
     footer{padding:28px 0;color:var(--muted);font-size:14px;border-top:1px solid rgba(11,23,35,0.04)}
     .footer-grid{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
     .tiny-branding{font-size:12px;text-align:center;color:var(--muted);margin-top:8px}
-
-    /* focus + accessibility */
     a:focus, button:focus, input:focus, select:focus, textarea:focus{
       outline:4px solid var(--focus);
       outline-offset:2px;
@@ -186,10 +225,15 @@
 </head>
 <body data-theme="light">
 
-  <!-- Loading screen (shows on page load for 5 seconds) -->
+  <!-- ===== Enhanced Loading Screen (immediately after body) ===== -->
   <div id="loadingScreen" role="status" aria-live="polite">
-    <img src="https://i.imgur.com/cnzc6hX.png" alt="SJ Consultation Logo">
-    <div class="loading-text">loading.</div>
+    <div class="loader-inner" aria-hidden="false">
+      <img src="https://i.imgur.com/cnzc6hX.png" alt="SJ Consultation Logo" />
+      <div class="loading-text" id="loadingText">loading.</div>
+      <div class="loading-bar" aria-hidden="true">
+        <div class="loading-progress" id="loadingProgress"></div>
+      </div>
+    </div>
   </div>
 
   <!-- NAV -->
@@ -203,7 +247,7 @@
         </div>
       </div>
 
-      <nav aria-label="Main navigation">
+      <nav aria-label="Main navigation" style="display:flex;align-items:center;gap:12px">
         <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-label="Toggle menu">☰</button>
 
         <div class="nav-links" id="desktopNav">
@@ -220,9 +264,14 @@
             </div>
           </div>
 
-          <!-- Desktop: keep primary CTA visible on desktop -->
+          <!-- Desktop: primary CTA visible on desktop -->
           <a class="cta" id="desktopConsultBtn" href="clntfrm.html">Get Consult</a>
         </div>
+
+        <!-- Theme toggle (clearly visible) -->
+        <button class="theme-toggle" id="themeToggle" aria-pressed="false" title="Toggle theme">
+          <img id="themeIcon" src="https://i.imgur.com/xsbEuC5.png" alt="theme icon">
+        </button>
 
         <!-- Mobile panel -->
         <div class="mobile-panel" id="mobilePanel" role="dialog" aria-modal="true" aria-hidden="true">
@@ -260,7 +309,7 @@
     </div>
   </header>
 
-  <!-- MAIN -->
+  <!-- MAIN CONTENT (hidden until loading screen disappears) -->
   <main class="container" id="mainContent" style="visibility:hidden;opacity:0;transition:opacity .4s ease, visibility .4s;">
     <!-- HERO -->
     <section class="hero" aria-labelledby="heroTitle">
@@ -311,7 +360,6 @@
         </article>
       </div>
 
-      <!-- Mobile-only consult button placed after services (mobile shows this; desktop hides via media rules) -->
       <div class="mobile-consult-wrapper" aria-hidden="false">
         <a class="mobile-consult-btn" href="clntfrm.html">Get Consult</a>
       </div>
@@ -360,7 +408,6 @@
         <div style="color:var(--muted)">Trusted consulting for security & investigations</div>
       </div>
 
-      <!-- Tiny branding line (same style as before) -->
       <div class="tiny-branding">
         <span style="background: linear-gradient(90deg, #0b74ff, #4b5563); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight:700;">SJ Consultation</span>
          •
@@ -370,28 +417,53 @@
   </main>
 
   <script>
-    // --- Loading screen behavior ---
-    const loading = document.getElementById('loadingScreen');
-    const mainContent = document.getElementById('mainContent');
+    // ===== Loading screen behavior (enhanced) =====
+    (function(){
+      const loading = document.getElementById('loadingScreen');
+      const mainContent = document.getElementById('mainContent');
+      const loadingText = document.getElementById('loadingText');
+      const loadingProgress = document.getElementById('loadingProgress');
 
-    // Lock scroll while loading
-    document.documentElement.style.overflow = 'hidden';
-    document.body.style.overflow = 'hidden';
+      // Lock scroll while loading
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
 
-    // Show loading for 5 seconds then hide (within 4-8s range per your spec)
-    setTimeout(() => {
-      loading.classList.add('fadeout');
-      // allow background UI to show after fade
-      setTimeout(()=> {
-        loading.style.display = 'none';
-        document.documentElement.style.overflow = '';
-        document.body.style.overflow = '';
-        mainContent.style.visibility = 'visible';
-        mainContent.style.opacity = '1';
-      }, 600);
-    }, 5000);
+      // animated dots
+      let dots = 1;
+      const dotInterval = setInterval(()=>{
+        dots = dots === 3 ? 1 : dots + 1;
+        if(loadingText) loadingText.textContent = 'loading' + '.'.repeat(dots);
+      }, 500);
 
-    // --- Navigation & mobile panel ---
+      // fake progress bar
+      let progress = 0;
+      const progressInterval = setInterval(()=>{
+        progress += Math.random() * 18;
+        if(progress > 98) progress = 98; // don't jump to 100 until final
+        if(loadingProgress) loadingProgress.style.width = Math.floor(progress) + '%';
+      }, 450);
+
+      // ensure minimum visible time: 5s, fade out then show main
+      const LOADING_MS = 5000;
+      setTimeout(()=>{
+        clearInterval(dotInterval);
+        clearInterval(progressInterval);
+        if(loadingProgress) loadingProgress.style.width = '100%';
+        loading.classList.add('fadeout');
+        // wait for fade animation
+        setTimeout(()=> {
+          loading.style.display = 'none';
+          document.documentElement.style.overflow = '';
+          document.body.style.overflow = '';
+          if(mainContent){
+            mainContent.style.visibility = 'visible';
+            mainContent.style.opacity = '1';
+          }
+        }, 600);
+      }, LOADING_MS);
+    })();
+
+    // ===== Navigation & mobile panel (unchanged behavior) =====
     const navToggle = document.getElementById('navToggle');
     const mobilePanel = document.getElementById('mobilePanel');
     const mobileClose = document.getElementById('mobileClose');
@@ -453,16 +525,34 @@
     }
     window.scrollToSection = scrollToSection;
 
-    // Year in footer
+    // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Dark/light theme toggle small implementation (keeps previous icons)
-    const root = document.documentElement;
-    const themeKey = 'sj_theme';
-    const currentTheme = localStorage.getItem(themeKey) || 'light';
-    root.setAttribute('data-theme', currentTheme);
+    // ===== Theme toggle (clearly visible icon) =====
+    (function(){
+      const themeKey = 'sj_theme';
+      const themeToggle = document.getElementById('themeToggle');
+      const themeIcon = document.getElementById('themeIcon');
+      const ICON_LIGHT = 'https://i.imgur.com/xsbEuC5.png';
+      const ICON_DARK  = 'https://i.imgur.com/vrfrd6g.png';
+      const root = document.documentElement;
 
-    // Update mobile/desktop CTA visibility on load & resize (ensures hero CTA hidden on mobile only)
+      const saved = localStorage.getItem(themeKey) || 'light';
+      root.setAttribute('data-theme', saved);
+      if(themeIcon) themeIcon.src = (saved === 'dark') ? ICON_DARK : ICON_LIGHT;
+      if(themeToggle) themeToggle.setAttribute('aria-pressed', saved === 'dark' ? 'true' : 'false');
+
+      themeToggle && themeToggle.addEventListener('click', ()=>{
+        const cur = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+        const next = cur === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        localStorage.setItem(themeKey, next);
+        if(themeIcon) themeIcon.src = (next === 'dark') ? ICON_DARK : ICON_LIGHT;
+        themeToggle.setAttribute('aria-pressed', next === 'dark' ? 'true' : 'false');
+      });
+    })();
+
+    // CTA visibility for mobile (ensures hero CTA hidden on small screens)
     function updateCTAVisibility(){
       const heroConsult = document.getElementById('heroConsultBtn');
       const desktopConsult = document.getElementById('desktopConsultBtn');
@@ -476,9 +566,6 @@
     }
     window.addEventListener('resize', updateCTAVisibility);
     updateCTAVisibility();
-
-    // Theme toggle - simple click on logo area toggles theme icon if you want to add it later
-    // (Left out explicit icon swap since no theme buttons were requested here)
   </script>
 </body>
 </html>
