@@ -226,7 +226,7 @@
     <option value="NU">Nunavut</option>
     <option value="ON">Ontario</option>
     <option value="PE">Prince Edward Island</option>
-    <option value="QC">Quebec</option>
+    <option value="QC" class="golden">Quebec</option>
     <option value="SK">Saskatchewan</option>
     <option value="YT">Yukon</option>
   </select>
@@ -254,7 +254,9 @@
     border: 1px solid rgba(255, 255, 255, 0.25);
     border-radius: 6px;
     outline: none;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+    font-weight: 600; /* bold text for all options */
+    appearance: none; /* remove default OS styling for select */
   }
 
   .form-group select:focus {
@@ -265,6 +267,23 @@
   .form-group select option {
     color: #ffffff;
     background-color: #1f2933;
+    font-weight: 600;
+  }
+
+  /* Quebec epic golden-diamond inside the options box */
+  .form-group select option.golden {
+    color: #ffd700; /* golden text */
+    font-weight: 900; /* extra bold */
+    background: linear-gradient(135deg, #ffd700, #fff8b0) !important; /* force gold-diamond gradient */
+    text-shadow: 0 0 2px rgba(255, 255, 255, 0.9);
+  }
+
+  /* When Quebec is selected, the select box itself glows golden */
+  .form-group select:has(option[value="QC"]:checked) {
+    background: linear-gradient(135deg, #ffd700, #fff8b0);
+    color: #ffffff;
+    border: 1px solid #ffea70;
+    box-shadow: 0 0 12px 3px rgba(255, 215, 0, 0.8);
   }
 </style>
 
