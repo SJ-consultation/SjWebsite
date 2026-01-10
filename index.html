@@ -46,7 +46,7 @@
     img{max-width:100%;height:auto;display:block;vertical-align:middle}
     .container{width:100%;max-width:var(--max-width);margin:0 auto;padding:0 20px}
 
-    /* ===== Enhanced Loading Screen ===== */
+    /* ===== Minimal Professional Loading Screen ===== */
     #loadingScreen{
       position:fixed;
       inset:0;
@@ -54,50 +54,37 @@
       align-items:center;
       justify-content:center;
       flex-direction:column;
-      background:radial-gradient(circle at top, rgba(11,116,255,0.10), rgba(0,0,0,0.85));
+      background:rgba(2,6,23,0.86);
       z-index:9999;
-      gap:14px;
+      gap:12px;
     }
     .loader-inner{
       display:flex;
       flex-direction:column;
       align-items:center;
-      gap:14px;
-      transform:translateY(-8px);
+      gap:10px;
+      transform:translateY(-6px);
     }
     .loader-inner img{
-      height:86px;
+      height:72px;
       width:auto;
-      animation:logoPulse 2.4s ease-in-out infinite;
-      filter: drop-shadow(0 8px 18px rgba(2,6,23,0.45));
-    }
-    @keyframes logoPulse{
-      0%,100%{transform:scale(1);opacity:0.95}
-      50%{transform:scale(1.05);opacity:1}
+      filter: drop-shadow(0 10px 24px rgba(0,0,0,0.5));
     }
     .loading-text{
       font-weight:700;
-      letter-spacing:1px;
-      color:#eaf1ff;
-      font-size:15px;
-      min-height:20px;
+      letter-spacing:0.8px;
+      color:#e6eef9;
+      font-size:14px;
+      min-height:18px;
     }
-    .loading-bar{
-      width:188px;
-      height:6px;
-      background:rgba(255,255,255,0.12);
-      border-radius:999px;
-      overflow:hidden;
+    .spinner{
+      width:36px;height:36px;border-radius:50%;
+      border:3px solid rgba(255,255,255,0.08);
+      border-top-color: rgba(255,255,255,0.28);
+      animation:spin 1s linear infinite;
     }
-    .loading-progress{
-      height:100%;
-      width:0%;
-      background:linear-gradient(90deg,#0b74ff,#9ca3af);
-      border-radius:999px;
-      transition:width .4s ease;
-      box-shadow:0 4px 14px rgba(11,116,255,0.12) inset;
-    }
-    .fadeout{animation:fadeOut .6s ease forwards;}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .fadeout{animation:fadeOut .45s ease forwards;}
     @keyframes fadeOut{to{opacity:0;visibility:hidden;transform:scale(.995)}}
 
     /* ===== Header & Nav (unchanged structurally) ===== */
@@ -225,14 +212,12 @@
 </head>
 <body data-theme="light">
 
-  <!-- ===== Enhanced Loading Screen (immediately after body) ===== -->
+  <!-- ===== Minimal Professional Loading Screen (immediately after body) ===== -->
   <div id="loadingScreen" role="status" aria-live="polite">
     <div class="loader-inner" aria-hidden="false">
-      <img src="https://i.imgur.com/cnzc6hX.png" alt="SJ Consultation Logo" />
-      <div class="loading-text" id="loadingText">loading.</div>
-      <div class="loading-bar" aria-hidden="true">
-        <div class="loading-progress" id="loadingProgress"></div>
-      </div>
+      <img src="assets/images/sjlogo.png" alt="SJ Consultation Logo" />
+      <div class="loading-text" id="loadingText">loading</div>
+      <div class="spinner" aria-hidden="true"></div>
     </div>
   </div>
 
@@ -240,7 +225,7 @@
   <header>
     <div class="container nav">
       <div class="brand">
-        <img id="mainLogo" src="https://i.imgur.com/cnzc6hX.png" alt="SJ Consultation Team Logo">
+        <img id="mainLogo" src="assets/images/sjlogo.png" alt="SJ Consultation Team Logo">
         <div>
           <div class="title">SJ Consultation Team</div>
           <div class="tag">Security · Strategy · Solutions</div>
@@ -270,14 +255,14 @@
 
         <!-- Theme toggle (clearly visible) -->
         <button class="theme-toggle" id="themeToggle" aria-pressed="false" title="Toggle theme">
-          <img id="themeIcon" src="https://i.imgur.com/xsbEuC5.png" alt="theme icon">
+          <img id="themeIcon" src="assets/images/photo4.png" alt="theme icon">
         </button>
 
         <!-- Mobile panel -->
         <div class="mobile-panel" id="mobilePanel" role="dialog" aria-modal="true" aria-hidden="true">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
             <div style="display:flex;gap:10px;align-items:center">
-              <img src="https://i.imgur.com/cnzc6hX.png" alt="logo" style="height:36px;border-radius:6px">
+              <img src="assets/images/sjlogo.png" alt="logo" style="height:36px;border-radius:6px">
               <div style="font-weight:700">SJ Consultation Team</div>
             </div>
             <div style="display:flex;gap:8px;align-items:center">
@@ -326,9 +311,9 @@
 
         <div class="hero-right" aria-hidden="false">
           <div class="hero-images" role="presentation">
-            <div class="img-1"><img src="https://i.imgur.com/J8yAkxU.jpeg" alt="Security consultation image"></div>
-            <div class="img-2"><img src="https://i.imgur.com/h4bd8XZ.jpeg" alt="Background checks"></div>
-            <div class="img-3"><img src="https://i.imgur.com/eYRio46.jpeg" alt="Licensed investigations"></div>
+            <div class="img-1"><img src="assets/images/photo1.jpg" alt="Security consultation image"></div>
+            <div class="img-2"><img src="assets/images/photo2.jpg" alt="Background checks"></div>
+            <div class="img-3"><img src="assets/images/photo3.jpg" alt="Licensed investigations"></div>
           </div>
         </div>
       </div>
@@ -338,21 +323,21 @@
     <section id="services" class="section">
       <h2>Our Services</h2>
       <div class="services-grid">
-        <article class="service-card" style="background-image:url('https://i.imgur.com/J8yAkxU.jpeg')">
+        <article class="service-card" style="background-image:url('assets/images/photo1.jpg')">
           <div class="service-overlay">
             <h3>Security Consultation</h3>
             <p>Pinpoint optimal placement for cameras, sensors, and access points to maximize coverage and efficiency.</p>
           </div>
         </article>
 
-        <article class="service-card" style="background-image:url('https://i.imgur.com/h4bd8XZ.jpeg')">
+        <article class="service-card" style="background-image:url('assets/images/photo2.jpg')">
           <div class="service-overlay">
             <h3>Background Checks</h3>
             <p>Comprehensive verification and history checks to support secure staffing and partnerships.</p>
           </div>
         </article>
 
-        <article class="service-card" style="background-image:url('https://i.imgur.com/eYRio46.jpeg')">
+        <article class="service-card" style="background-image:url('assets/images/photo3.jpg')">
           <div class="service-overlay">
             <h3>Licensed Investigations</h3>
             <p>Professional investigations conducted by licensed specialists — discreet and thorough.</p>
@@ -396,7 +381,7 @@
           <p>We are a team of experienced consultants specializing in security placement, investigations, and operational planning. Our goal is to provide clear, actionable recommendations tailored to each facility's unique needs. Confidentiality and professionalism are at the core of everything we do.</p>
         </div>
         <div style="width:280px;border-radius:12px;overflow:hidden;box-shadow:var(--shadow)">
-          <img src="https://i.imgur.com/J8yAkxU.jpeg" alt="Team image" style="width:100%;height:100%;object-fit:cover">
+          <img src="assets/images/photo1.jpg" alt="Team image" style="width:100%;height:100%;object-fit:cover">
         </div>
       </div>
     </section>
@@ -417,40 +402,27 @@
   </main>
 
   <script>
-    // ===== Loading screen behavior (enhanced) =====
+    // ===== Loading screen behavior (minimal/professional) =====
     (function(){
       const loading = document.getElementById('loadingScreen');
       const mainContent = document.getElementById('mainContent');
       const loadingText = document.getElementById('loadingText');
-      const loadingProgress = document.getElementById('loadingProgress');
 
       // Lock scroll while loading
       document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
 
-      // animated dots
-      let dots = 1;
+      // subtle text animation
+      let dots = 0;
       const dotInterval = setInterval(()=>{
-        dots = dots === 3 ? 1 : dots + 1;
+        dots = (dots + 1) % 4;
         if(loadingText) loadingText.textContent = 'loading' + '.'.repeat(dots);
-      }, 500);
+      }, 600);
 
-      // fake progress bar
-      let progress = 0;
-      const progressInterval = setInterval(()=>{
-        progress += Math.random() * 18;
-        if(progress > 98) progress = 98; // don't jump to 100 until final
-        if(loadingProgress) loadingProgress.style.width = Math.floor(progress) + '%';
-      }, 450);
-
-      // ensure minimum visible time: 5s, fade out then show main
-      const LOADING_MS = 5000;
+      // show for 5s then fade
       setTimeout(()=>{
         clearInterval(dotInterval);
-        clearInterval(progressInterval);
-        if(loadingProgress) loadingProgress.style.width = '100%';
         loading.classList.add('fadeout');
-        // wait for fade animation
         setTimeout(()=> {
           loading.style.display = 'none';
           document.documentElement.style.overflow = '';
@@ -459,8 +431,8 @@
             mainContent.style.visibility = 'visible';
             mainContent.style.opacity = '1';
           }
-        }, 600);
-      }, LOADING_MS);
+        }, 480);
+      }, 5000);
     })();
 
     // ===== Navigation & mobile panel (unchanged behavior) =====
@@ -528,13 +500,13 @@
     // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // ===== Theme toggle (clearly visible icon) =====
+    // ===== Theme toggle (local icons) =====
     (function(){
       const themeKey = 'sj_theme';
       const themeToggle = document.getElementById('themeToggle');
       const themeIcon = document.getElementById('themeIcon');
-      const ICON_LIGHT = 'https://i.imgur.com/xsbEuC5.png';
-      const ICON_DARK  = 'https://i.imgur.com/vrfrd6g.png';
+      const ICON_LIGHT = 'assets/images/copilot_image_1767937152504.jpeg';
+      const ICON_DARK  = 'assets/images/copilot_image_1767937399636.jpeg';
       const root = document.documentElement;
 
       const saved = localStorage.getItem(themeKey) || 'light';
@@ -569,6 +541,7 @@
   </script>
 </body>
 </html>
+
 <div style="text-align:center; font-size:12px; color:#9ca3af; margin:16px 0;">
   <a href="privacy.html" style="color:#9ca3af; text-decoration:none;">
     Privacy Policy
